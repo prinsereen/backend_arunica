@@ -14,12 +14,13 @@ export const refreshToken = async(req, res) => {
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err) return res.sendStatus(403);
 
-            const id = user.student_id;
-            const name = user.student_name;
-            const email = user.student_email;
-            const nisn = user.student_nisn;
+            const user_id = user.id;
+            const user_name = user.name;
+            const user_email = user.email;
+            const user_nisn = user.nisn;
+    
 
-        const accessToken = jwt.sign({id, name, email, nisn}, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign({user_id, user_name, user_email, user_nisn}, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '1d'
         });
             res.json({accessToken})

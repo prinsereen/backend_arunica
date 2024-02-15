@@ -4,7 +4,7 @@ import db from "../config/Database.js";
 const {DataTypes} = Sequelize;
 
 const Student = db.define('students', {
-    student_id:{
+    uuid:{
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -12,47 +12,47 @@ const Student = db.define('students', {
             notEmpty: true,
         }
     },
-    student_name:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true,
         }
     },
-    student_email:{
+    email:{
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true,
         }
     },
-    student_nisn:{
+    nisn:{
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true 
         }
     },    
-    student_password:{
+    password:{
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true,
         }
     },
-    student_grade:{
+    grade:{
         type: DataTypes.CHAR(100)
     },
-    student_class:{
+    class:{
         type: DataTypes.CHAR(100)
     },
-    student_avg_quiz_score: {
+    avg_quiz_score: {
         type: DataTypes.FLOAT
     },
-    student_avg_read_score: {
+    avg_read_score: {
         type: DataTypes.FLOAT
     },
-    student_competiton_recomendation: {
+    competiton_recomendation: {
         type: DataTypes.STRING
     },
     refresh_token: {

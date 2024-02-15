@@ -5,7 +5,7 @@ import jwt  from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
 
 export const register = async(req, res) => {
-    const {student_name, student_email, student_nisn, student_password, student_conf_password} = req.body;
+    const {name, email, nisn, password, conf_password} = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -14,21 +14,21 @@ export const register = async(req, res) => {
 
     try {
         const salt = await bcrypt.genSalt();
-        const hashPassword = await bcrypt.hash(student_password, salt);
+        const hashPassword = await bcrypt.hash(password, salt);
 
         const newStudent = await Student.create({
-            student_name: student_name,
-            student_email: student_email,
-            student_nisn: student_nisn,
-            student_password: hashPassword
+            name: name,
+            email: email,
+            nisn: nisn,
+            password: hashPassword
         });
 
         const studentData = newStudent.get();
         console.log(studentData)
 
         delete studentData.id;
-        delete studentData.student_id;
-        delete studentData.student_password;
+        delete studentData.id;
+        delete studentData.password;
         delete studentData.updatedAt;
         delete studentData.createdAt;
         
@@ -42,7 +42,7 @@ export const register = async(req, res) => {
 export const login = async(req, res) => {
     try {
 
-        const {student_nisn, student_password} = req.body;
+        const {nisn, password} = req.body;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -51,27 +51,27 @@ export const login = async(req, res) => {
 
         const user = await Student.findOne({
             where:{
-                student_nisn: student_nisn
+                nisn: nisn
             }
         })
 
-        const match = await bcrypt.compare(student_password, user.student_password);
+        const match = await bcrypt.compare(password, user.password);
         if(!match) return error(res, "Wrong Password")
 
-        const id = user.student_id;
-        const name = user.student_name;
-        const email = user.student_email;
-        const nisn = user.student_nisn;
+        const user_id = user.id;
+        const user_name = user.name;
+        const user_email = user.email;
+        const user_nisn = user.nisn;
 
-        const accessToken = jwt.sign({id, name, email, nisn}, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign({user_id, user_name, user_email, user_nisn}, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '1d'
         });
-        const refreshToken = jwt.sign({id, name, email, nisn}, process.env.REFRESH_TOKEN_SECRET, {
+        const refreshToken = jwt.sign({user_id, user_name, user_email, user_nisn}, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
         await Student.update({refresh_token: refreshToken}, {
             where: {
-                student_nisn: student_nisn
+                nisn: nisn
             }
         });
         res.cookie('refreshToken', refreshToken, {
@@ -94,10 +94,10 @@ export const logout = async(req, res) => {
         }
     });
     if(!user) return res.sendStatus(204);
-    const student_nisn = user.student_nisn;
+    const nisn = user.nisn;
     await Student.update({refresh_token: null},{
         where:{
-            student_nisn: student_nisn
+            nisn: nisn
         }
     });
     res.clearCookie('refreshToken');
