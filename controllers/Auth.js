@@ -22,68 +22,57 @@ export const register = async(req, res) => {
             nisn: nisn,
             password: hashPassword
         });
-
-        const studentData = newStudent.get();
-        console.log(studentData)
-
-        delete studentData.id;
-        delete studentData.id;
-        delete studentData.password;
-        delete studentData.updatedAt;
-        delete studentData.createdAt;
         
-        return success(res, "Berhasil Register", studentData);
+        return success(res, "Berhasil Register", newStudent);
         
     } catch (error) {
         console.log(error)
     }
 }
 
-export const login = async(req, res) => {
+export const login = async (req, res) => {
     try {
+        const { nisn, password } = req.body;
 
-        const {nisn, password} = req.body;
-
+        // Validate request body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return error(res,  errors["errors"][0].path + " " + errors["errors"][0].msg, errors["errors"])
+            const errorMessage = `${errors.errors[0].param} ${errors.errors[0].msg}`;
+            return error(res, errorMessage, errors.errors);
         }
 
-        const user = await Student.findOne({
-            where:{
-                nisn: nisn
-            }
-        })
+        // Find user by nisn
+        const user = await Student.findOne({ where: { nisn } });
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
 
+        // Compare passwords
         const match = await bcrypt.compare(password, user.password);
-        if(!match) return error(res, "Wrong Password")
+        if (!match) {
+            return error(res, "Wrong Password");
+        }
 
-        const user_id = user.id;
-        const user_name = user.name;
-        const user_email = user.email;
-        const user_nisn = user.nisn;
+        // Generate access and refresh tokens
+        const { id, uuid, name, email } = user;
+        const accessToken = generateToken({ id, uuid, name, email, nisn });
+        const refreshToken = generateToken({ id, uuid, name, email, nisn }, process.env.REFRESH_TOKEN_SECRET);
 
-        const accessToken = jwt.sign({user_id, user_name, user_email, user_nisn}, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '1d'
-        });
-        const refreshToken = jwt.sign({user_id, user_name, user_email, user_nisn}, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '1d'
-        });
-        await Student.update({refresh_token: refreshToken}, {
-            where: {
-                nisn: nisn
-            }
-        });
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 24*60*1000
-        });
-        res.json({accessToken})
+        // Update refresh token in database
+        await Student.update({ refresh_token: refreshToken }, { where: { nisn } });
+
+        // Set refreshToken cookie
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 1000 });
+
+        // Send access token in response
+        res.json({ accessToken });
     } catch (error) {
-        console.log(error)
-        res.status(404).json({msg: "User Tidak Ditemukan"})
+        console.log(error);
+        res.status(500).json({ msg: "Internal Server Error" });
     }
-}
+};
+
+
 
 export const logout = async(req, res) => {
     const refreshToken = req.cookies.refreshToken;
@@ -102,4 +91,40 @@ export const logout = async(req, res) => {
     });
     res.clearCookie('refreshToken');
     return res.sendStatus(200)
+}
+
+export const getMe = async (req, res) => {
+    try {
+        // Extract the user's information from the request object
+        const { id, name, email, nisn } = req.user;
+
+        // Fetch the user's information from the database based on their ID
+        const user = await Student.findOne({ where: { id }, attributes: attr });
+
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        // Return the user's information
+        return success(res, "User details retrieved successfully", user);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Internal Server Error" });
+    }
+};
+
+const attr = [
+    'uuid',
+    'name',
+    'email',
+    'nisn',
+    'grade',
+    'class',
+    'avg_quiz_score',
+    'avg_read_score',
+    'competiton_recomendation'
+]
+
+function generateToken(payload, secret = process.env.ACCESS_TOKEN_SECRET) {
+    return jwt.sign(payload, secret, { expiresIn: '1d' });
 }

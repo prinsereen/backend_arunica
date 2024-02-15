@@ -5,9 +5,9 @@ import { getAllStudent, getStudentById, updateStudentById, deleteStudentById } f
 
 const router = express.Router();
 
-router.get('/student', verifyToken, getAllStudent)
-router.get('/student/:id', verifyToken, getStudentById)
-router.patch('/student/:id', verifyToken, updateStudentById)
+router.get('/students', verifyToken, getAllStudent)
+router.get('/student', verifyToken, getStudentById)
+router.patch('/student', verifyToken, updateStudentById)
 router.delete('/student/:id', verifyToken, deleteStudentById)
 
 export default router;

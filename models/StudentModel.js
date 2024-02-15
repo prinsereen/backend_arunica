@@ -27,7 +27,7 @@ const Student = db.define('students', {
         }
     },
     nisn:{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
             notEmpty: true 

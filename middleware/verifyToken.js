@@ -14,8 +14,9 @@ export const verifyToken = (req, res, next) => {
         }
         console.log(decoded)
         req.user = {
-            nisn: decoded.nisn,
             id: decoded.id,
+            nisn: decoded.nisn,
+            uuid: decoded.uuid,
             email: decoded.email,
             name: decoded.name,
         };
