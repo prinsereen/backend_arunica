@@ -120,6 +120,7 @@ const attr = [
     'nisn',
     'grade',
     'class',
+    'points',
     'avg_quiz_score',
     'avg_read_score',
     'competiton_recomendation'

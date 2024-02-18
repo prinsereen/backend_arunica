@@ -40,6 +40,9 @@ const Student = db.define('students', {
             notEmpty: true,
         }
     },
+    points:{
+        type: DataTypes.INTEGER,
+    },
     grade:{
         type: DataTypes.CHAR(100)
     },

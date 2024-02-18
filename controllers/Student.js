@@ -1,8 +1,6 @@
 import Student from "../models/StudentModel.js";
 import {success, error} from "../lib/Responser.js";
 import bcrypt from "bcrypt"
-import { where } from "sequelize";
-
 
 
 export const getAllStudent = async(req, res) => {
@@ -107,6 +105,7 @@ const attr = [
     'nisn',
     'grade',
     'class',
+    'points',
     'avg_quiz_score',
     'avg_read_score',
     'competiton_recomendation'
