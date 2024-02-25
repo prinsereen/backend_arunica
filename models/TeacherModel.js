@@ -24,7 +24,20 @@ const Teacher = db.define('teachers',{
         validate: {
             notEmpty: true 
         }
-    },    
+    },
+    password:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
+    },
+    profile_url:{
+        type: DataTypes.STRING
+    },
+    refresh_token: {
+        type: DataTypes.TEXT
+    }    
 })
 
 
