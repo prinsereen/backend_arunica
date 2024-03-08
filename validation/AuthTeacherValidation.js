@@ -6,11 +6,11 @@ export const Register = [
     check('name').isLength({ min: 1 }).withMessage('tidak boleh kosong'),
     check('password').isLength({ min: 1 }).withMessage('tidak boleh kosong'),
     check('nip').isLength({ min: 1 }).withMessage('tidak boleh kosong')
-    .custom(async (nisn, { req }) => {
-        const existingNisn = await Teacher.findOne({
-            where: { nisn: nisn }
+    .custom(async (nip, { req }) => {
+        const existingnip = await Teacher.findOne({
+            where: { nip: nip }
         });
-        if (existingNisn) {
+        if (existingnip) {
             throw new Error('user sudah terdaftar');
         }
     }),
@@ -19,6 +19,7 @@ export const Register = [
         const existingEmail = await Teacher.findOne({
             where: { email: email }
         });
+        console.log(existingEmail)
         if (existingEmail) {
             throw new Error('user sudah terdaftar');
         }

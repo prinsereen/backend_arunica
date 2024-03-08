@@ -11,6 +11,7 @@ import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import StudentRoute from "./routes/StudentRoute.js"
+import AuthTeacherRoute from "./routes/AuthTeacherRoute.js"
 
 dotenv.config();
 
@@ -31,5 +32,6 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(AuthRoute)
 app.use(StudentRoute)
+app.use(AuthTeacherRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))

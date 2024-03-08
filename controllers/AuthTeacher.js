@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import jwt  from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
 
-export const registerTeacher = async(re, res) => {
+export const register = async(req, res) => {
     const {name, email, nip, password, conf_password} = req.body;
 
     const errors = validationResult(req);
@@ -30,7 +30,7 @@ export const registerTeacher = async(re, res) => {
     }
 }
 
-export const loginTeacher = async(req, res) => {
+export const login = async(req, res) => {
     try {
         const { nip, password } = req.body;
     
@@ -42,7 +42,7 @@ export const loginTeacher = async(req, res) => {
         }
 
         // Find user by nip
-        const user = await Student.findOne({ where: { nip } });
+        const user = await Teacher.findOne({ where: { nip } });
         if (!user) {
             return res.status(404).json({ msg: "User not found" });
         }

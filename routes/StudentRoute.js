@@ -1,13 +1,12 @@
 import express from "express";
-import { verifyToken } from "../middleware/verifyToken.js";
+import { verifyStudentTeacher } from "../middleware/VerifyAccses.js";
 import { getAllStudent, getStudentById, updateStudentById, deleteStudentById } from "../controllers/Student.js";
-
 
 const router = express.Router();
 
-router.get('/students', verifyToken, getAllStudent)
-router.get('/student', verifyToken, getStudentById)
-router.patch('/student', verifyToken, updateStudentById)
-router.delete('/student/:id', verifyToken, deleteStudentById)
+router.get('/students', verifyStudentTeacher, getAllStudent);
+router.get('/student', verifyStudentTeacher, getStudentById);
+router.patch('/student', verifyStudentTeacher, updateStudentById);
+router.delete('/student/:id', verifyStudentTeacher, deleteStudentById);
 
 export default router;
