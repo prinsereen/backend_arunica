@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken"
 import { verifyToken } from "./verifyToken.js";
 import { verifyTokenTeacher } from "./verifyTokenTeacher.js";
+import { verifyTokenAdmin } from "./verifyTokenAdmin.js";
 
-export const verifyStudentTeacher = (req, res, next) => {
+export const verifyAllUser = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -17,7 +18,13 @@ export const verifyStudentTeacher = (req, res, next) => {
         } else {
             // If token is not valid for student, try teacher verification
             jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_TEACHER, (err, decoded) => {
-                verifyTokenTeacher(req, res, next)
+                if (!err){
+                    verifyTokenTeacher(req, res, next)
+                }else{
+                    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_TEACHER, (err, decoded) => {
+                        verifyTokenAdmin(req, res, next)
+                    })
+                }
             });
         }
     });

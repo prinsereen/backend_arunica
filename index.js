@@ -6,11 +6,13 @@ import StudentClass from "./models/StudentClassModel.js";
 import Subject from "./models/SubjectModel.js";
 import Material from "./models/MaterialsModel.js";
 import Teacher from "./models/TeacherModel.js";
+import Admin from "./models/AdminModel.js";
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import StudentRoute from "./routes/StudentRoute.js"
+import AuthAdminRoute from "./routes/AuthAdminRoute.js"
 import AuthTeacherRoute from "./routes/AuthTeacherRoute.js"
 
 dotenv.config();
@@ -33,5 +35,6 @@ app.use(express.json())
 app.use(AuthRoute)
 app.use(StudentRoute)
 app.use(AuthTeacherRoute)
+app.use(AuthAdminRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))
