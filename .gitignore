@@ -1,7 +1,7 @@
 *node_modules/*
 .env
-/assets/audiobooks
-/assets/books
-/assets/buletins
-/assets/photos
-/assets/videos
+/assets/audiobooks/*
+/assets/books/*
+/assets/buletins/*
+/assets/photos/*
+/assets/videos/*
