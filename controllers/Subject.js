@@ -1,5 +1,5 @@
 import {success, error} from "../lib/Responser.js";
-import Subject from "../models/SubjectModel.js"
+import Subject from "../models/SubjectModel.js";
 
 export const getAllSubject = async(req, res) => {
     try {

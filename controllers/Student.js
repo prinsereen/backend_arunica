@@ -2,7 +2,6 @@ import Student from "../models/StudentModel.js";
 import {success, error} from "../lib/Responser.js";
 import bcrypt from "bcrypt"
 
-
 export const getAllStudent = async(req, res) => {
     try {
         const student = await Student.findAll({
@@ -84,7 +83,6 @@ export const updateStudentById = async (req, res) => {
     }
 };
 
-
 export const deleteStudentById = async(req, res) => {
     try {
         const student = await findStudentById(req.params.id);
@@ -119,7 +117,6 @@ async function findStudentById(id) {
         attributes: attr
     });
 }
-
 
 async function findStundetByNisn(nisn){
     return await Student.findOne({
