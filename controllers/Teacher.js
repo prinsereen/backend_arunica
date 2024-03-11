@@ -4,7 +4,7 @@ import Teacher from "../models/TeacherModel.js";
 
 export const getAllTeacher = async(req, res) => {
     try {
-        const teachers = Teacher.findAll({
+        const teachers = await Teacher.findAll({
             attributes: attr
         })
         return success(res, "Berhasil mendapatkan data semua student", teachers);
@@ -15,7 +15,7 @@ export const getAllTeacher = async(req, res) => {
 
 export const getTeacherbyId = async(req, res) => {
     try {
-        const teacher = Teacher.findOne({
+        const teacher = await Teacher.findOne({
             where:{
                 id: req.params.id,
                 attributes: attr

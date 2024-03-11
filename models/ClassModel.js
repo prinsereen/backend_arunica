@@ -22,13 +22,7 @@ const Class = db.define('classes',{
     },
     nama_kelas:{
         type: DataTypes.STRING,
-    },
-    grade:{
-        type: DataTypes.CHAR(100)
-    },
-    class:{
-        type: DataTypes.CHAR(100)
-    },
+    }
 })
 
 Class.belongsTo(Teacher, {foreignKey: 'teacher_id'});
