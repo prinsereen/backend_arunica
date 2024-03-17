@@ -22,6 +22,10 @@ const Class = db.define('classes',{
     },
     nama_kelas:{
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
     }
 })
 

@@ -6,7 +6,7 @@ import Subject from "../models/SubjectModel.js";
 export const getAllClass = async (req, res) => {
     try {
         const classes = await Class.findAll({
-            attributes: ['id', 'teacher_id', 'subject_id'],
+            attributes: ['id', 'nama_kelas','teacher_id', 'subject_id'],
             include: [
                 {
                     model: Teacher,
