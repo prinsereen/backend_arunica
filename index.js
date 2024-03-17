@@ -17,7 +17,8 @@ import AuthTeacherRoute from "./routes/AuthTeacherRoute.js"
 import SubjectRoute from "./routes/SubjetRoute.js"
 import ClassRoute from "./routes/ClassRoute.js"
 import StudentClassRoute from "./routes/StudentClassRoute.js"
-import GenAIRoute from "./routes/GenAIRoute.js"
+import GenAIRoute from "./routes/GenAIRoute.js";
+import MaterialRoute from "./routes/MaterialRoute.js";
 
 dotenv.config();
 
@@ -44,5 +45,6 @@ app.use(SubjectRoute)
 app.use(ClassRoute)
 app.use(StudentClassRoute)
 app.use(GenAIRoute)
+app.use(MaterialRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))

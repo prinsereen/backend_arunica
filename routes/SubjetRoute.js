@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/subject', verifyTokenAdmin, createSubject);
 router.get('/subject', verifyTeacherAdmin, getAllSubject);
-router.put('/subject/:id', verifyTokenAdmin, updateSubject); // Route for updating a subject
+router.patch('/subject/:id', verifyTokenAdmin, updateSubject); // Route for updating a subject
 router.delete('/subject/:id', verifyTokenAdmin, deleteSubject); // Route for deleting a subject
 
 export default router;
