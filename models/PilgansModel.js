@@ -5,7 +5,7 @@ import Quizes from "./QuizesModel.js";
 const { DataTypes } = Sequelize;
 
 const Pilgans = db.define('pilgans', {
-    quiz_pilgan_id:{
+    quiz_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -44,10 +44,6 @@ const Pilgans = db.define('pilgans', {
     }
 })
 
-Quizes.hasMany(Pilgans);
-Pilgans.belongsTo(Quizes,{
-    foreignKey: 'quiz_pilgan_id',
-    targetKey: 'pilgan_id'
-})
+Quizes.hasMany(Pilgans, {foreignKey: "quiz_id"});
 
 export default Pilgans;

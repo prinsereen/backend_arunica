@@ -9,7 +9,7 @@ import Teacher from "./models/TeacherModel.js";
 import Admin from "./models/AdminModel.js";
 import Quizes from "./models/QuizesModel.js";
 import Pilgans from "./models/pilgansModel.js";
-import IsianSingkat from "./models/IsianSingkatModel.js"
+import IsianSingkat from "./models/IsianSingkatModel.js";
 import Essai from "./models/EssaiModel.js"
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
@@ -23,7 +23,10 @@ import ClassRoute from "./routes/ClassRoute.js"
 import StudentClassRoute from "./routes/StudentClassRoute.js"
 import GenAIRoute from "./routes/GenAIRoute.js";
 import MaterialRoute from "./routes/MaterialRoute.js";
-import QuizRoute from "./routes/QuizRoute.js"
+import QuizRoute from "./routes/QuizRoute.js";
+import PilganRoute from "./routes/PilganRoute.js";
+import IsianSingkatRoute from "./routes/IsianSingkatRoute.js";
+import EssaiRoute from "./routes/EssaiRoute.js"
 
 dotenv.config();
 
@@ -52,5 +55,8 @@ app.use(StudentClassRoute)
 app.use(GenAIRoute)
 app.use(MaterialRoute)
 app.use(QuizRoute)
+app.use(PilganRoute)
+app.use(IsianSingkatRoute)
+app.use(EssaiRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))

@@ -5,7 +5,7 @@ import Quizes from "./QuizesModel.js";
 const {DataTypes} = Sequelize;
 
 const IsianSingkat = db.define('isiansingkats', {
-    quiz_isian_singkat_id:{
+    quiz_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -28,10 +28,6 @@ const IsianSingkat = db.define('isiansingkats', {
     },
 })
 
-Quizes.hasMany(IsianSingkat);
-IsianSingkat.belongsTo(Quizes,{
-    foreignKey: 'quiz_isian_singkat_id',
-    targetKey: 'isian_singkat_id'
-})
+Quizes.hasMany(IsianSingkat, {foreignKey: "quiz_id"});
 
 export default IsianSingkat;

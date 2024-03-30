@@ -5,7 +5,14 @@ import Quizes from "./QuizesModel.js";
 const {DataTypes} = Sequelize;
 
 const Essai = db.define('essais', {
-    quiz_essai_id:{
+    tipe:{
+        type: DataTypes.ENUM("text", "pict"),
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
+    },
+    quiz_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -21,16 +28,9 @@ const Essai = db.define('essais', {
     },    
     jawaban:{
         type: DataTypes.STRING,
-    },
-    urlJawaban:{
-        type: DataTypes.STRING,
     }
 })
 
-Quizes.hasMany(Essai);
-Essai.belongsTo(Quizes,{
-    foreignKey: 'quiz_essai_id',
-    targetKey: 'essai_id'
-})
+Quizes.hasMany(Essai, {foreignKey: "quiz_id"});
 
 export default Essai;
