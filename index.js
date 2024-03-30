@@ -1,14 +1,16 @@
 import express from "express"
 import db from "./config/Database.js";
 import Student from "./models/StudentModel.js";
-import Class from "./models/ClassModel.js";
+import Class from "./models/classModel.js";
 import StudentClass from "./models/StudentClassModel.js";
 import Subject from "./models/SubjectModel.js";
 import Material from "./models/MaterialsModel.js";
 import Teacher from "./models/TeacherModel.js";
 import Admin from "./models/AdminModel.js";
-import Quizes from "./models/Quizes.js";
+import Quizes from "./models/QuizesModel.js";
 import Pilgans from "./models/pilgansModel.js";
+import IsianSingkat from "./models/IsianSingkatModel.js"
+import Essai from "./models/EssaiModel.js"
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
@@ -21,6 +23,7 @@ import ClassRoute from "./routes/ClassRoute.js"
 import StudentClassRoute from "./routes/StudentClassRoute.js"
 import GenAIRoute from "./routes/GenAIRoute.js";
 import MaterialRoute from "./routes/MaterialRoute.js";
+import QuizRoute from "./routes/QuizRoute.js"
 
 dotenv.config();
 
@@ -48,5 +51,6 @@ app.use(ClassRoute)
 app.use(StudentClassRoute)
 app.use(GenAIRoute)
 app.use(MaterialRoute)
+app.use(QuizRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))

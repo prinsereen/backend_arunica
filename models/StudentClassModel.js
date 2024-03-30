@@ -1,7 +1,7 @@
 import {Sequelize} from "sequelize";
 import db from "../config/Database.js";
 import Student from "./StudentModel.js";
-import Class from "./ClassModel.js";
+import Class from "./classModel.js";
 
 const {DataTypes} = Sequelize;
 
