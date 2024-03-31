@@ -10,6 +10,7 @@ export const verifyTokenTeacher = (req, res, next) => {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_TEACHER, (err, decoded) => {
         if (err) {
+            console.log("error here")
             return res.sendStatus(403);
         }
         console.log(decoded)

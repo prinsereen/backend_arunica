@@ -1,5 +1,5 @@
 import { success, error } from "../lib/Responser.js";
-import Pilgans from "../models/pilgansModel.js";
+import Pilgans from "../models/PilgansModel.js";
 import Quizes from "../models/QuizesModel.js";
 
 export const createPilgan = async (req, res) => {

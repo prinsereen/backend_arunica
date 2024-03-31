@@ -8,9 +8,12 @@ import Material from "./models/MaterialsModel.js";
 import Teacher from "./models/TeacherModel.js";
 import Admin from "./models/AdminModel.js";
 import Quizes from "./models/QuizesModel.js";
-import Pilgans from "./models/pilgansModel.js";
+import Pilgans from "./models/PilgansModel.js";
 import IsianSingkat from "./models/IsianSingkatModel.js";
 import Essai from "./models/EssaiModel.js"
+import EssaiAttempt from "./models/EssaiAttemptModel.js";
+import IsianSingkatAttempt from "./models/IsianSingkatAttempt.js";
+import PilganAttempt from "./models/PilganAttemptModel.js";
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
@@ -27,6 +30,7 @@ import QuizRoute from "./routes/QuizRoute.js";
 import PilganRoute from "./routes/PilganRoute.js";
 import IsianSingkatRoute from "./routes/IsianSingkatRoute.js";
 import EssaiRoute from "./routes/EssaiRoute.js"
+import AttempPilganRoute from "./routes/PilganAttemptRoute.js"
 
 dotenv.config();
 
@@ -58,5 +62,6 @@ app.use(QuizRoute)
 app.use(PilganRoute)
 app.use(IsianSingkatRoute)
 app.use(EssaiRoute)
+app.use(AttempPilganRoute)
 
 app.listen(5000, ()=> console.log("server running on port 5000"))
