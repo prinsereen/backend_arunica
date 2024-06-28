@@ -1,7 +1,7 @@
 import {success, error} from "../lib/Responser.js";
 import StudentClass from "../models/StudentClassModel.js";
 import Student from "../models/StudentModel.js";
-import Class from "../models/classModel.js";
+import Class from "../models/ClassModel.js";
 import Teacher from "../models/TeacherModel.js";
 import Subject from "../models/SubjectModel.js";
 import excelToJson from "convert-excel-to-json";

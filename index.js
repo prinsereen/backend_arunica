@@ -2,7 +2,7 @@ import express from "express"
 import db from "./config/Database.js";
 import cors from "cors"
 import Student from "./models/StudentModel.js";
-import Class from "./models/classModel.js";
+import Class from "./models/ClassModel.js";
 import StudentClass from "./models/StudentClassModel.js";
 import Subject from "./models/SubjectModel.js";
 import Material from "./models/MaterialsModel.js";
@@ -66,4 +66,9 @@ app.use(IsianSingkatRoute)
 app.use(EssaiRoute)
 app.use(AttempPilganRoute)
 
-app.listen(5000, ()=> console.log("server running on port 5000"))
+const port = process.env.PORT || 3000;
+
+// Listen on `port` and 0.0.0.0
+app.listen(port, "0.0.0.0", function () {
+  console.log("server running on port", port)
+});

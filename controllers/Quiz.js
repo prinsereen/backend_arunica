@@ -1,6 +1,6 @@
 import { success, error } from "../lib/Responser.js";
 import Quizes from "../models/QuizesModel.js";
-import Class from "../models/classModel.js";
+import Class from "../models/ClassModel.js";
 import Material from "../models/MaterialsModel.js";
 
 export const createQuiz = async(req, res) => {
