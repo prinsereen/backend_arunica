@@ -1,5 +1,6 @@
 import express from "express"
 import db from "./config/Database.js";
+import cors from "cors"
 import Student from "./models/StudentModel.js";
 import Class from "./models/classModel.js";
 import StudentClass from "./models/StudentClassModel.js";
@@ -44,6 +45,7 @@ try {
     console.log(error)
 }
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
