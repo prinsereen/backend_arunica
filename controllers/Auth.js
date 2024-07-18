@@ -72,8 +72,6 @@ export const login = async (req, res) => {
     }
 };
 
-
-
 export const logout = async(req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if(!refreshToken) return res.sendStatus(204);
@@ -96,22 +94,73 @@ export const logout = async(req, res) => {
 export const getMe = async (req, res) => {
     try {
         // Extract the user's information from the request object
-        const { id, name, email, nisn } = req.user;
+        const { id } = req.user;
 
         // Fetch the user's information from the database based on their ID
-        const user = await Student.findOne({ where: { id }, attributes: attr });
+        const user = await Student.findOne({ where: { id }});
+        console.log(user.points)
 
         if (!user) {
             return res.status(404).json({ msg: "User not found" });
         }
+        const total = user.math_activities + 
+                      user.ipa_activities +
+                      user.pkn_activities + 
+                      user.literasi_activities + 
+                      user.ips_activities + 
+                      user.bindo_activities + 
+                      user.bing_activities + 
+                      user.senbud_activities
+        //console.log(total)
+
+        const response = {
+            firstName: user.name.split(' ')[0],
+            url_photo: user.url_photo,
+            progress: ((user.points % 50) / 50) * 100,
+            level: Math.floor(user.points/50),
+            math: user.math_activities / total, 
+            ipa: user.ipa_activities / total, 
+            pkn: user.pkn_activities / total, 
+            literasi: user.literasi_activities / total, 
+            ips: user.ips_activities / total, 
+            bindo: user.bindo_activities / total, 
+            bing: user.bing_activities / total, 
+            senbud: user.senbud_activities / total, 
+        }
 
         // Return the user's information
-        return success(res, "User details retrieved successfully", user);
+        return success(res, "User details retrieved successfully", response);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 };
+
+export const getProfileName = async(req, res) => {
+    try {
+        // Extract the user's information from the request object
+        const { id } = req.user;
+
+        // Fetch the user's information from the database based on their ID
+        const user = await Student.findOne({ where: { id }});
+        //console.log(user.points)
+
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+
+        const response = {
+            firstName: user.name.split(' ')[0],
+            url_photo: user.url_photo
+        }
+
+        // Return the user's information
+        return success(res, "User details retrieved successfully", response);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Internal Server Error" });
+    }
+} 
 
 const attr = [
     'uuid',
@@ -121,9 +170,15 @@ const attr = [
     'grade',
     'class',
     'points',
-    'avg_quiz_score',
-    'avg_read_score',
-    'competiton_recomendation'
+    'url_photo',
+    'math_activities',
+    'ipa_activities',
+    'pkn_activities',
+    'literasi_activities',
+    'ips_activities',
+    'bindo_activities',
+    'bing_activities',
+    'senbud_activities'
 ]
 
 function generateToken(payload, secret = process.env.ACCESS_TOKEN_SECRET) {

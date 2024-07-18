@@ -40,6 +40,9 @@ const Student = db.define('students', {
             notEmpty: true,
         }
     },
+    url_photo:{
+        type: DataTypes.STRING,
+    },
     points:{
         type: DataTypes.INTEGER,
     },
@@ -49,15 +52,30 @@ const Student = db.define('students', {
     class:{
         type: DataTypes.CHAR(100)
     },
-    avg_quiz_score: {
-        type: DataTypes.FLOAT
-    },
-    avg_read_score: {
-        type: DataTypes.FLOAT
-    },
-    competiton_recomendation: {
-        type: DataTypes.STRING
-    },
+    math_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    ipa_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    pkn_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    literasi_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    ips_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    bindo_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    bing_activities:{
+        type: DataTypes.INTEGER,
+    },    
+    senbud_activities:{
+        type: DataTypes.INTEGER,
+    },    
     refresh_token: {
         type: DataTypes.TEXT
     }

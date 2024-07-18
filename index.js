@@ -15,6 +15,7 @@ import Essai from "./models/EssaiModel.js"
 import EssaiAttempt from "./models/EssaiAttemptModel.js";
 import IsianSingkatAttempt from "./models/IsianSingkatAttempt.js";
 import PilganAttempt from "./models/PilganAttemptModel.js";
+import Knowledge from "./models/KnowledgeModel.js";
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
@@ -32,6 +33,7 @@ import PilganRoute from "./routes/PilganRoute.js";
 import IsianSingkatRoute from "./routes/IsianSingkatRoute.js";
 import EssaiRoute from "./routes/EssaiRoute.js"
 import AttempPilganRoute from "./routes/PilganAttemptRoute.js"
+import Knowledgeroute from "./routes/KnowledgeRoute.js"
 
 dotenv.config();
 
@@ -40,7 +42,7 @@ const app = express();
 try {
     await db.authenticate();
     console.log("Database Connected ...")
-    await db.sync()
+    //await db.sync()
 } catch (error) {
     console.log(error)
 }
@@ -65,6 +67,7 @@ app.use(PilganRoute)
 app.use(IsianSingkatRoute)
 app.use(EssaiRoute)
 app.use(AttempPilganRoute)
+app.use(Knowledgeroute)
 
 const port = process.env.PORT || 3000;
 
