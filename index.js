@@ -16,6 +16,9 @@ import EssaiAttempt from "./models/EssaiAttemptModel.js";
 import IsianSingkatAttempt from "./models/IsianSingkatAttempt.js";
 import PilganAttempt from "./models/PilganAttemptModel.js";
 import Knowledge from "./models/KnowledgeModel.js";
+import Comic from "./models/ComicModel.js";
+import Buku from "./models/books.js";
+import HistoryBacaan from "./models/HistoryRingkasan.js";
 import bodyParser from "body-parser";
 import AuthRoute from "./routes/AuthRoute.js"
 import dotenv from "dotenv"
@@ -34,6 +37,9 @@ import IsianSingkatRoute from "./routes/IsianSingkatRoute.js";
 import EssaiRoute from "./routes/EssaiRoute.js"
 import AttempPilganRoute from "./routes/PilganAttemptRoute.js"
 import Knowledgeroute from "./routes/KnowledgeRoute.js"
+import ComicRoute from "./routes/ComicRoute.js"
+import BukuRoute from "./routes/BukuRoute.js"
+import HistoryBacaanRoute from "./routes/HistoryBacaanRoute.js"
 
 dotenv.config();
 
@@ -68,6 +74,9 @@ app.use(IsianSingkatRoute)
 app.use(EssaiRoute)
 app.use(AttempPilganRoute)
 app.use(Knowledgeroute)
+app.use(ComicRoute)
+app.use(BukuRoute)
+app.use(HistoryBacaanRoute)
 
 const port = process.env.PORT || 3000;
 

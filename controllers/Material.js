@@ -3,8 +3,7 @@ import Material from '../models/MaterialsModel.js';
 import { success, error } from '../lib/Responser.js';
 import Subject from '../models/SubjectModel.js';
 import Student from "../models/StudentModel.js"
-import { where } from 'sequelize';
-import { Where } from 'sequelize/lib/utils';
+
 
 export const createKnowledge = async (req, res) => {
     try {

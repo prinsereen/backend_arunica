@@ -136,6 +136,34 @@ export const getMe = async (req, res) => {
     }
 };
 
+export const getLeaderboard = async (req, res) => {
+    try {
+        const users = await Student.findAll({
+            attributes: ['url_photo', 'name', 'points']
+        });
+
+        // Transform users array to include progress and level
+        const transformedUsers = users.map(user => {
+            const points = user.points;
+            const progress = ((points % 50) / 50) * 100;
+            const level = Math.floor(points / 50);
+            return {
+                img: user.url_photo,
+                nama: user.name.split(' ')[0],
+                Level: `Lvl ${level} EXP ${progress.toFixed(2)}`
+            };
+        });
+
+        // Sort transformed users by points in descending order
+        transformedUsers.sort((a, b) => b.points - a.points);
+
+        return success(res, "User details retrieved successfully", transformedUsers);
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error" });
+    }
+};
+
+
 export const getProfileName = async(req, res) => {
     try {
         // Extract the user's information from the request object
