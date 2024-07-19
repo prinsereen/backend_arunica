@@ -14,9 +14,10 @@ export const createHistoryBacaan = async (req, res) => {
         } = req.body;
 
         const user = await Student.findByPk(id);
-        const {literasi_activities} = user;
+        const {literasi_activities, points} = user;
         await user.update({
-            literasi_activities: literasi_activities+1
+            literasi_activities: literasi_activities+1,
+            points: points + 7
         })
 
         const newHistory = await HistoryBacaan.create({
@@ -27,7 +28,7 @@ export const createHistoryBacaan = async (req, res) => {
             ringkasan,
             pemahanan_siswa: 86,
             kesesuaiaan_ringkasan: 86,
-            gen_ai_feedback: "Anton, ringkasan ceritamu jelas, tapi tambahkan detail dinamika hubungan karakter dan nuansa petualangan. Sentuh aspek emosional karakter, dan berikan pendapat pribadimu. Pertahankan teknik penulisan yang baik, dan gambarkan keterkaitan ide-ide utama. Dengan sentuhan ini, ringkasanmu akan lebih memikat. Tetap semangat!",
+            gen_ai_feedback: "ringkasan ceritamu jelas, tapi tambahkan detail dinamika hubungan karakter dan nuansa petualangan. Sentuh aspek emosional karakter, dan berikan pendapat pribadimu. Pertahankan teknik penulisan yang baik, dan gambarkan keterkaitan ide-ide utama. Dengan sentuhan ini, ringkasanmu akan lebih memikat. Tetap semangat!",
             exp: 7
         });
 
