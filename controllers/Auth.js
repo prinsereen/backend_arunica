@@ -150,18 +150,23 @@ export const getLeaderboard = async (req, res) => {
             return {
                 img: user.url_photo,
                 nama: user.name.split(' ')[0],
-                Level: `Lvl ${level} EXP ${progress.toFixed(2)}`
+                Level: `Lvl ${level} EXP ${progress.toFixed(2)}`,
+                points: points // Tambahkan properti points untuk sorting
             };
         });
 
         // Sort transformed users by points in descending order
         transformedUsers.sort((a, b) => b.points - a.points);
 
-        return success(res, "User details retrieved successfully", transformedUsers);
+        // Remove the points property from the final response if it's not needed
+        const finalUsers = transformedUsers.map(({ points, ...rest }) => rest);
+
+        return success(res, "User details retrieved successfully", finalUsers);
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 };
+
 
 
 export const getProfileName = async(req, res) => {

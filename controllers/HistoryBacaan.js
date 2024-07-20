@@ -2,6 +2,7 @@ import HistoryBacaan from "../models/HistoryRingkasan.js";
 import { success } from "../lib/Responser.js";
 import Student from "../models/StudentModel.js";
 import Buku from "../models/books.js";
+import { ASAG } from "./GenAI.js";
 
 export const createHistoryBacaan = async (req, res) => {
     try {
@@ -15,9 +16,17 @@ export const createHistoryBacaan = async (req, res) => {
 
         const user = await Student.findByPk(id);
         const {literasi_activities, points} = user;
+
+
+        let resultAsag = await ASAG(ringkasan)
+        resultAsag = resultAsag
+        console.log(resultAsag)
+        const {pemahaman_siswa, kesesuaian_ringkasan, gen_ai_feedback} = resultAsag
+        const exp = Math.floor(((pemahaman_siswa+kesesuaian_ringkasan)/2)/10)
+
         await user.update({
             literasi_activities: literasi_activities+1,
-            points: points + 7
+            points: points + exp
         })
 
         const newHistory = await HistoryBacaan.create({
@@ -26,10 +35,10 @@ export const createHistoryBacaan = async (req, res) => {
             dari,
             sampai,
             ringkasan,
-            pemahanan_siswa: 86,
-            kesesuaiaan_ringkasan: 86,
-            gen_ai_feedback: "ringkasan ceritamu jelas, tapi tambahkan detail dinamika hubungan karakter dan nuansa petualangan. Sentuh aspek emosional karakter, dan berikan pendapat pribadimu. Pertahankan teknik penulisan yang baik, dan gambarkan keterkaitan ide-ide utama. Dengan sentuhan ini, ringkasanmu akan lebih memikat. Tetap semangat!",
-            exp: 7
+            pemahanan_siswa: pemahaman_siswa,
+            kesesuaiaan_ringkasan: kesesuaian_ringkasan,
+            gen_ai_feedback,
+            exp
         });
 
         return success(res, "Berhasil", newHistory)
