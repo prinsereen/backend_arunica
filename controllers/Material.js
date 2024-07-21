@@ -196,6 +196,60 @@ export const addProgressVideo = async(req, res) => {
 
 }
 
+export const addProgressMath = async(req, res) => {
+    try {
+        const { id } = req.user;
+
+        const user = await Student.findByPk(id)
+        if (!user){
+           return success(res, "Anda Bukan Siswa")
+        }
+
+        const {
+            math_activities,
+            points
+        } = user
+
+        await user.update({
+            math_activities: math_activities + 1,
+            points: points + 15
+        })
+
+        return success(res, "something went wrong", user)
+    } catch (error) {
+        console.log(error)
+        return res.status(500)
+    }
+
+}
+
+export const addProgressIps = async(req, res) => {
+    try {
+        const { id } = req.user;
+
+        const user = await Student.findByPk(id)
+        if (!user){
+           return success(res, "Anda Bukan Siswa")
+        }
+
+        const {
+            ips_activities,
+            points
+        } = user
+
+        await user.update({
+            ips_activities: ips_activities + 1,
+            points: points + 15
+        })
+
+        return success(res, "something went wrong", user)
+    } catch (error) {
+        console.log(error)
+        return res.status(500)
+    }
+
+}
+
 
 
 
