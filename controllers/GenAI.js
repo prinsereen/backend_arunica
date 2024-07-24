@@ -53,7 +53,7 @@ export const ASAG = async (ringkasan) => {
         messages: [
           {
             role: 'user',
-            content: `Kamu adalah ai yang digunakan untuk menilai ringkasan siswa. siswa meringkas setelah membaca buku. Ada 2 hal yang harus kamu nilai. pertama kamu harus menilai Pemahaman Siswa, kedua kamu harus menilai Kesesuaian ringkasan nilai tersebut harus integer diantara 60 - 100. Selain itu kamu juga harus memberikan feedback untuk ejaan dari siswa teliti jika ada kesalahan tanda baca sampaikan dengan maksimal 150 kata berikan kata motivasi belajar juga ya. format jawaban kamu adalah berbentuk json seperti {pemahaman_siswa: nilai, kesesuaian_ringkasan: nilai, gen_ai_feedback: feedback} jangan ada. Berikut adalah ringkasan yang dibuat siswa: ${ringkasan}`
+            content: `Kamu adalah ai yang digunakan untuk menilai ringkasan siswa. siswa meringkas setelah membaca buku. Ada 2 hal yang harus kamu nilai. pertama kamu harus menilai Pemahaman Siswa, kedua kamu harus menilai Kesesuaian ringkasan nilai tersebut harus integer diantara 50 - 100. Selain itu kamu juga harus memberikan feedback untuk ejaan dari siswa teliti jika ada kesalahan tanda baca sampaikan dengan maksimal 150 kata berikan kata motivasi belajar juga ya. format jawaban kamu adalah berbentuk json seperti {pemahaman_siswa: nilai, kesesuaian_ringkasan: nilai, gen_ai_feedback: feedback} jangan ada. Berikut adalah ringkasan yang dibuat siswa: ${ringkasan}`
           }
         ],
         web_access: false
