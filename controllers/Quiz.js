@@ -5,7 +5,21 @@ import Material from "../models/MaterialsModel.js";
 
 export const createQuiz = async(req, res) => {
     try {
-        const {class_id, materials_id } = req.body;
+        const {
+            class_id, 
+            materials_id, 
+            durasi,
+            total_attempt,
+            total_exp,
+            thumbnail_url,
+            deskripsi,
+            jumlah_pilihan_ganda,
+            skor_pilgan,
+            jumlah_isian_singkat,
+            skor_isian_singkat,
+            jumlah_esai,
+            skor_esai
+        } = req.body;
 
         const existingClass = await Class.findByPk(class_id);
         if (!existingClass) {
@@ -13,18 +27,26 @@ export const createQuiz = async(req, res) => {
         }
 
         const newQuiz = await Quizes.create({
-            class_id,
-            materials_id
+            class_id, 
+            materials_id, 
+            durasi,
+            total_attempt,
+            total_exp,
+            thumbnail_url,
+            deskripsi,
+            jumlah_pilihan_ganda,
+            skor_pilgan,
+            jumlah_isian_singkat,
+            skor_isian_singkat,
+            jumlah_esai,
+            skor_esai
         });
 
-        // Mengembalikan respons sukses
         return success(res, "Berhasil membuat kuis baru", newQuiz);
     } catch (error) {
-        // Handling specific error
         if (error.message === 'Invalid class_id. Class not found.') {
             return res.status(400).json({ msg: error.message });
         }
-        // Handling other errors
         return res.status(500).json({ msg: error.message });
     }
 }
