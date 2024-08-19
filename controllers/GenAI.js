@@ -10,7 +10,7 @@ export const personalAssistance = async (req, res) => {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
-        'x-rapidapi-key': 'ffb3c98728msh199f2c99fff58fap18e38cjsna6d7e0e1fa4c',
+        'x-rapidapi-key': 'cc7ed3fab4msh284ac18c75fb6d5p1ba6c1jsn0d7c0d0c986d',
         'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
         'Content-Type': 'application/json'
       },
@@ -45,7 +45,7 @@ export const ASAG = async (ringkasan) => {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
-        'x-rapidapi-key': 'ffb3c98728msh199f2c99fff58fap18e38cjsna6d7e0e1fa4c',
+        'x-rapidapi-key': 'cc7ed3fab4msh284ac18c75fb6d5p1ba6c1jsn0d7c0d0c986d',
         'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
         'Content-Type': 'application/json'
       },
